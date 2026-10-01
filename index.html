@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Saturday plans</title>
+  <title>Sophisticated Title</title>
+
   <style>
     body {
       font-family: "Times New Roman", serif;
@@ -12,7 +13,9 @@
       color: black;
     }
 
-    h1 { margin-top: 25px; }
+    h1 {
+      margin-top: 25px;
+    }
 
     #wheel {
       width: 320px;
@@ -43,13 +46,22 @@
     #result {
       font-size: 22px;
       font-weight: bold;
-      min-height: 55px;
+      min-height: 40px;
       margin: 22px 10px 0;
+    }
+
+    .reaction {
+      display: none;
+      width: 250px;
+      max-width: 80vw;
+      height: auto;
+      margin: 15px auto;
     }
   </style>
 </head>
 
 <body>
+
   <h1>Saturday Night Vibe Checker</h1>
   <p>Powered by DAIvid - Your Gateway to Success</p>
 
@@ -57,71 +69,130 @@
     <div class="arrow">▼</div>
 
     <svg id="wheel" viewBox="0 0 300 300">
-      <!-- Three equal slices -->
-      <path d="M150 150 L150 5 A145 145 0 0 1 275.6 222.5 Z"
-            fill="lightblue" stroke="black" stroke-width="2"/>
-      <path d="M150 150 L275.6 222.5 A145 145 0 0 1 24.4 222.5 Z"
-            fill="lightgreen" stroke="black" stroke-width="2"/>
-      <path d="M150 150 L24.4 222.5 A145 145 0 0 1 150 5 Z"
-            fill="pink" stroke="black" stroke-width="2"/>
 
-      <text x="210" y="95" text-anchor="middle" font-size="15"
-            transform="rotate(30 210 95)">Lower East Side</text>
+      <path
+        d="M150 150 L150 5 A145 145 0 0 1 275.6 222.5 Z"
+        fill="lightblue"
+        stroke="black"
+        stroke-width="2"
+      />
 
-      <text x="150" y="235" text-anchor="middle" font-size="15">
+      <path
+        d="M150 150 L275.6 222.5 A145 145 0 0 1 24.4 222.5 Z"
+        fill="lightgreen"
+        stroke="black"
+        stroke-width="2"
+      />
+
+      <path
+        d="M150 150 L24.4 222.5 A145 145 0 0 1 150 5 Z"
+        fill="pink"
+        stroke="black"
+        stroke-width="2"
+      />
+
+      <text
+        x="210"
+        y="95"
+        text-anchor="middle"
+        font-size="15"
+        transform="rotate(30 210 95)"
+      >
+        Lower East Side
+      </text>
+
+      <text
+        x="150"
+        y="235"
+        text-anchor="middle"
+        font-size="15"
+      >
         West Village
       </text>
 
-      <text x="88" y="100" text-anchor="middle" font-size="14"
-            transform="rotate(-30 88 100)">
+      <text
+        x="88"
+        y="100"
+        text-anchor="middle"
+        font-size="14"
+        transform="rotate(-30 88 100)"
+      >
         <tspan x="88" dy="0">I don't want to</tspan>
         <tspan x="88" dy="17">see David</tspan>
       </text>
 
-      <circle cx="150" cy="150" r="12" fill="white" stroke="black" stroke-width="2"/>
+      <circle
+        cx="150"
+        cy="150"
+        r="12"
+        fill="white"
+        stroke="black"
+        stroke-width="2"
+      />
+
     </svg>
   </div>
 
   <br>
+
   <button id="spin">SPIN</button>
 
   <div id="result"></div>
+
+  <img
+    id="happyDog"
+    class="reaction"
+    src="happy_dog.gif"
+    alt="he is so happy"
+  >
+
+  <img
+    id="sadCat"
+    class="reaction"
+    src="sad_cat.jpeg"
+    alt="who would ever read an alt"
+  >
 
   <script>
     var wheel = document.getElementById("wheel");
     var button = document.getElementById("spin");
     var result = document.getElementById("result");
+    var happyDog = document.getElementById("happyDog");
+    var sadCat = document.getElementById("sadCat");
 
     var rotation = 0;
-    var choices = [
-      "Lower East Side",
-      "West Village",
-      "I don't want to see David"
-    ];
 
     button.onclick = function () {
+
       button.disabled = true;
+
       result.innerHTML = "";
+      happyDog.style.display = "none";
+      sadCat.style.display = "none";
 
       var choice = Math.floor(Math.random() * 3);
-
       var centers = [60, 180, 300];
       var target = (360 - centers[choice]) % 360;
       var current = ((rotation % 360) + 360) % 360;
       var extra = (target - current + 360) % 360;
 
       rotation += 1440 + extra;
-      wheel.style.transform = "rotate(" + rotation + "deg)";
+
+      wheel.style.transform =
+        "rotate(" + rotation + "deg)";
 
       setTimeout(function () {
         if (choice === 2) {
           result.innerHTML = "Sorry, but not sorry. Try again.";
+          sadCat.style.display = "block";
         } else {
           result.innerHTML = "Wow, great choice!";
+          happyDog.style.display = "block";
         }
         button.disabled = false;
       }, 3100);
     };
   </script>
+
 </body>
 </html>
